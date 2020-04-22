@@ -60,4 +60,17 @@ class CookbookTest < Minitest::Test
   def test_it_can_find_date
     assert_equal "04-22-2020", @cookbook.date
   end
+
+  def test_it_can_find_summary
+    @recipe1.add_ingredient(@ingredient1, 2)
+    @recipe1.add_ingredient(@ingredient2, 8)
+    @recipe2.add_ingredient(@ingredient3, 4)
+    @recipe2.add_ingredient(@ingredient4, 100)
+    @cookbook.add_recipe(@recipe1)
+    @cookbook.add_recipe(@recipe2)
+
+    expected = [{:ingredient=>"Macaroni", :amount=>"8 oz"},
+                {:ingredient=>"Cheese", :amount=>"2 C"}]
+    assert_equal expected, cookbook.ingredient_details(recipe1)
+  end
 end
